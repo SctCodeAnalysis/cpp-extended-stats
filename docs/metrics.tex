@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\begin{document}
+
+\section{Base metrics}
+\begin{itemize}
+\item Number of C/C++ files
+\item Number of classes
+\end{itemize}
+
+\section{Metrics for Object-Oriented Design}
+
+\begin{itemize}
+
+\item \href{https://www.researchgate.net/publication/2253619_Object-Oriented_Software_Engineering_Measuring_and_Controlling_the_Development_Process}{Method Hiding Factor} - the ratio of the sum of hidden methods in all classes of the system under consideration to the total number of methods for all classes.
+
+\item \href{https://www.researchgate.net/publication/2253619_Object-Oriented_Software_Engineering_Measuring_and_Controlling_the_Development_Process}{Attribute Hiding Factor} - the ratio of the sum of hidden attributes in all classes of the system under consideration to the total number of attributes for all classes.
+
+\item \href{https://www.researchgate.net/publication/2253619_Object-Oriented_Software_Engineering_Measuring_and_Controlling_the_Development_Process}{Method Inheritance Factor} - the ratio of the sum of the inherited methods in all classes of the system under consideration to the total number of available methods (locally defined plus inherited) for all classes.
+
+\item \href{https://www.researchgate.net/publication/2253619_Object-Oriented_Software_Engineering_Measuring_and_Controlling_the_Development_Process}{Attribute Inheritance Factor} - the ratio of the sum of inherited attributes in all classes of the system under consideration to the total number of available attributes (locally defined plus inherited) for all classes.
+
+\item \href{https://www.researchgate.net/publication/2253619_Object-Oriented_Software_Engineering_Measuring_and_Controlling_the_Development_Process}{Polymorphism Factor} - the number of methods that redefine inherited methods in all classes of the system under consideration, divided by the
+maximum number of possible distinct polymorphic situations for all classes.
+
+\item Average Depth of Inheritance Tree(DIT) - the ratio of the sum of DIT of all classes of the system under consideration to the total number of classes.
+
+\href{https://www.eso.org/~tcsmgr/oowg-forum/TechMeetings/Articles/OOMetrics.pdf}{Depth of Inheritance Tree} - Depth of inheritance of the class is the DIT metric for the class. In cases involving multiple inheritance, the
+DIT will be the maximum length from the node to the root of the tree.
+
+\item
+Average Number of Children(NOC) - the ratio of the sum of NOC of all classes of the system under consideration to the total number of classes.
+
+\href{https://www.eso.org/~tcsmgr/oowg-forum/TechMeetings/Articles/OOMetrics.pdf}{Number of Children} - number of immediate sub-classes subordinated to a class in the class hierarchy.
+
+\item
+Average Response for a Class - the ratio of the sum of Response for a Class of all classes of the system under consideration to the total number of classes.
+
+\href{https://www.eso.org/~tcsmgr/oowg-forum/TechMeetings/Articles/OOMetrics.pdf}{Response for a Class} - \big | RS \big |, where RS is a set of all methods that can be invoked in response to a message to an object of
+the class.
+
+\item
+Average Number of Messages - the ratio of the sum of Number of Messages of all classes of the system under consideration to the total number of classes.
+
+\href{http://www.cc.uah.es/drg/b/RodHarRama00.English.pdf}{Number of Messages} - the number of messages sent in a method.
+\end{itemize}
+
+\end{document}
