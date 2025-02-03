@@ -30,10 +30,8 @@ class NumberOfFiles:
         """ Iterates over a folder and collects FileCursors"""
 
         # Set the path in which to search for libclang
-        # if not Config.library_file:
-        #     Config.set_library_file("/path/to/libclang.dll")
         if not Config.library_file:
-            Config.set_library_file(r"C:\Program Files\LLVM\bin\libclang.dll")
+            Config.set_library_file("/path/to/libclang.dll")
         index = Index.create()
 
         file_cursors = []

@@ -15,6 +15,12 @@ class AttributeHidingFactor(ClassMetric):
         return self._name
 
     def consume(self, class_cursor: ClassCursor) -> None:
+        """
+        Callback method for processing single reference to a class/struct within the AST.
+
+        :param class_cursor: Reference to a class/struct within the AST
+        :return: None
+        """
         for attribute_cursor in class_cursor.get_attributes():
             self._total_attributes += 1
             if attribute_cursor.is_hidden():

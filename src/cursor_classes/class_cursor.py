@@ -13,6 +13,7 @@ class ClassCursor:
 
     def get_methods(self) -> List[MethodCursor]:
         """Finds all available methods in the class."""
+        pass
 
     def get_attributes(self, visited: tuple[str, str] = None) -> List[AttributeCursor]:
         """
