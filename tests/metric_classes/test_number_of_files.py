@@ -1,6 +1,4 @@
 import os
-from pathlib import Path
-
 import pytest
 
 from src.metric_classes.number_of_files import NumberOfFiles
@@ -17,8 +15,9 @@ class TestNumberOfFiles:
     def test_get_files(self, repo_path, short_paths):
         number_of_files = NumberOfFiles(repo_path)
 
-        filenames = sorted([file_cursor.path for file_cursor in number_of_files.get_files()])
-        expected = sorted([str(Path(os.path.join(repo_path, path))) for path in short_paths])
+        filenames = sorted([os.path.normpath(file_cursor.path)
+                            for file_cursor in number_of_files.get_files()])
+        expected = sorted([os.path.normpath(os.path.join(repo_path, p)) for p in short_paths])
         assert filenames == expected
 
     @pytest.mark.parametrize(
