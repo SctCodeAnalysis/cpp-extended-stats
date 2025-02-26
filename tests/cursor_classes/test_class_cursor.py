@@ -12,12 +12,12 @@ class TestClassCursor:
 
     @pytest.mark.parametrize(
         "repo_path, fixture",
-        [(r"tests\data\private_inheritance", "private_inheritance_fixture"),
-         (r"tests\data\protected_inheritance", "protected_inheritance_fixture"),
-         (r"tests\data\public_inheritance", "public_inheritance_fixture"),
-         (r"tests\data\multiple_inheritance", "multiple_inheritance_fixture"),
-         (r"tests\data\several_classes_in_file", "several_classes_in_file_fixture"),
-         (r"tests\data\empty", "empty_fixture")]
+        [("tests/data/inheritance/private", "private_inheritance_fixture"),
+         ("tests/data/inheritance/protected", "protected_inheritance_fixture"),
+         ("tests/data/inheritance/public", "public_inheritance_fixture"),
+         ("tests/data/inheritance/multiple", "multiple_inheritance_fixture"),
+         ("tests/data/several_classes_in_file", "several_classes_in_file_fixture"),
+         ("tests/data/empty", "empty_fixture")]
     )
     def test_get_attributes(self, repo_path, fixture, request):
         number_of_files = NumberOfFiles(repo_path)

@@ -1,0 +1,4 @@
+ignored/
+
+inner/ignored.hpp
+ignored.c
