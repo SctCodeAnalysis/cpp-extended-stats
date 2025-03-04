@@ -51,7 +51,8 @@ class CppExtStats:
         ET.SubElement(root, "repository-path").text = f"./{self._repo_path}"
         metrics_element = ET.SubElement(root, "metrics")
         for metric in self._metrics.values():
-            ET.SubElement(metrics_element, metric.NAME).text = str(round(metric.result, 2))
+            ET.SubElement(metrics_element, "metric",
+                          name=metric.NAME).text = str(round(metric.result, 2))
 
         return minidom.parseString(ET.tostring(root)).toprettyxml(indent="\t")
 
