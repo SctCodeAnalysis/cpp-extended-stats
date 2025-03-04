@@ -17,6 +17,29 @@ class TestClassCursor:
               ("tests/data/empty", "empty_fixture")]
 
     @pytest.mark.parametrize("repo_path, fixture", __args)
+    def test_get_methods(self, repo_path, fixture, request):
+        number_of_files = NumberOfFiles(repo_path)
+        number_of_classes = NumberOfClasses(number_of_files.get_files())
+
+        result = {
+            cls.cursor.spelling: {
+                f"{atr.cursor.semantic_parent.spelling}::{atr.cursor.spelling}": atr.access_specifier
+                for atr in cls.get_methods()
+            }
+            for cls in number_of_classes.get_classes()
+        }
+
+        expected = {
+            cls: {
+                name + "Method": spec
+                for name, spec in d.items()
+            }
+            for cls, d in request.getfixturevalue(fixture).items()
+        }
+
+        assert result == expected
+
+    @pytest.mark.parametrize("repo_path, fixture", __args)
     def test_get_attributes(self, repo_path, fixture, request):
         number_of_files = NumberOfFiles(repo_path)
         number_of_classes = NumberOfClasses(number_of_files.get_files())
