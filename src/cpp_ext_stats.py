@@ -7,6 +7,7 @@ from src.metric_classes.number_of_files import NumberOfFiles
 from src.metric_classes.number_of_classes import NumberOfClasses
 from src.metric_classes.class_metric import ClassMetric
 from src.metric_classes.attribute_hiding_factor import AttributeHidingFactor
+from src.metric_classes.method_hiding_factor import MethodHidingFactor
 
 
 class CppExtStats:
@@ -20,7 +21,8 @@ class CppExtStats:
         number_of_files = NumberOfFiles(repo_path)
         self._metrics = {"NUMBER_OF_FILES": number_of_files,
                          "NUMBER_OF_CLASSES": NumberOfClasses(number_of_files.get_files()),
-                         "ATTRIBUTE_HIDING_FACTOR": AttributeHidingFactor()}
+                         "ATTRIBUTE_HIDING_FACTOR": AttributeHidingFactor(),
+                         "METHOD_HIDING_FACTOR": MethodHidingFactor()}
         self._calculate()
 
     def list(self) -> List[str]:
