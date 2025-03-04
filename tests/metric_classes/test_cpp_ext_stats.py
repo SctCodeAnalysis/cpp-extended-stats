@@ -1,0 +1,34 @@
+import pytest
+
+from src.cpp_ext_stats import CppExtStats
+from src.metric_classes.method_hiding_factor import MethodHidingFactor
+from src.metric_classes.attribute_hiding_factor import AttributeHidingFactor
+
+
+class TestCppExtStats:
+    __repo_paths = ["tests/data/empty",
+                    "tests/data/inheritance/multiple",
+                    "tests/data/inheritance/private",
+                    "tests/data/inheritance/protected",
+                    "tests/data/inheritance/public",
+                    "tests/data/inheritance",
+                    "tests/data/several_classes_in_file",
+                    "tests/data"]
+
+    @pytest.mark.parametrize(
+        "repo_path, expected",
+        list(zip(__repo_paths, [0, 0, 1, 1, 0.5, 10 / 21, 0, 10 / 22])))
+    def test_method_hiding_factor(self, repo_path, expected):
+        stats = CppExtStats(repo_path)
+        result = stats.metric(MethodHidingFactor.NAME)
+
+        assert result == expected
+
+    @pytest.mark.parametrize(
+        "repo_path, expected",
+        list(zip(__repo_paths, [0, 0, 1, 1, 0.5, 10 / 21, 0, 10 / 21])))
+    def test_attribute_hiding_factor(self, repo_path, expected):
+        stats = CppExtStats(repo_path)
+        result = stats.metric(AttributeHidingFactor.NAME)
+
+        assert result == expected
