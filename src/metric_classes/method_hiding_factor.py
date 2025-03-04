@@ -5,14 +5,11 @@ from src.cursor_classes.class_cursor import ClassCursor
 class MethodHidingFactor(ClassMetric):
     """ Calculates method hiding factor """
 
+    NAME = "METHOD_HIDING_FACTOR"
+
     def __init__(self):
-        self._name = "METHOD_HIDING_FACTOR"
         self._hidden_methods = 0
         self._total_methods = 0
-
-    @property
-    def name(self) -> str:
-        return self._name
 
     def consume(self, class_cursor: ClassCursor) -> None:
         """
