@@ -10,39 +10,42 @@ class TestClassCursor:
                 AccessSpecifier.PROTECTED: "protected",
                 AccessSpecifier.PUBLIC: "public"}
 
-    @pytest.mark.parametrize(
-        "repo_path, fixture",
-        [("tests/data/inheritance/private", "private_inheritance_fixture"),
-         ("tests/data/inheritance/protected", "protected_inheritance_fixture"),
-         ("tests/data/inheritance/public", "public_inheritance_fixture"),
-         ("tests/data/inheritance/multiple", "multiple_inheritance_fixture"),
-         ("tests/data/several_classes_in_file", "several_classes_in_file_fixture"),
-         ("tests/data/empty", "empty_fixture")]
-    )
+    __args = [("tests/data/inheritance/private", "private_inheritance_fixture"),
+              ("tests/data/inheritance/protected", "protected_inheritance_fixture"),
+              ("tests/data/inheritance/public", "public_inheritance_fixture"),
+              ("tests/data/inheritance/multiple", "multiple_inheritance_fixture"),
+              ("tests/data/empty", "empty_fixture")]
+
+    @pytest.mark.parametrize("repo_path, fixture", __args)
     def test_get_attributes(self, repo_path, fixture, request):
         number_of_files = NumberOfFiles(repo_path)
         number_of_classes = NumberOfClasses(number_of_files.get_files())
 
-        result = {}
-        for cls in number_of_classes.get_classes():
-            result[cls.cursor.spelling] = {}
-            for atr in cls.get_attributes():
-                result[cls.cursor.spelling][atr.cursor.spelling] = self.__access[
-                    atr.access_specifier]
+        result = {
+            cls.cursor.spelling: {
+                f"{atr.cursor.semantic_parent.spelling}::{atr.cursor.spelling}": atr.access_specifier
+                for atr in cls.get_attributes()
+            }
+            for cls in number_of_classes.get_classes()
+        }
 
-        assert result == request.getfixturevalue(fixture)
+        expected = {
+            cls: {
+                name + "Attribute": spec
+                for name, spec in d.items()
+            }
+            for cls, d in request.getfixturevalue(fixture).items()
+        }
+
+        assert result == expected
 
 
 @pytest.fixture
 def private_inheritance_fixture():
     return {
-        "Base": {
-            "privateBase": "private",
-            "protectedBase": "protected",
-            "publicBase": "public"},
         "Derived": {
-            "protectedBase": "private",
-            "publicBase": "private"},
+            "Base::protected": AccessSpecifier.PRIVATE,
+            "Base::public": AccessSpecifier.PRIVATE},
         "DerivedDerived": {}
     }
 
@@ -50,16 +53,12 @@ def private_inheritance_fixture():
 @pytest.fixture
 def protected_inheritance_fixture():
     return {
-        "Base": {
-            "privateBase": "private",
-            "protectedBase": "protected",
-            "publicBase": "public"},
         "Derived": {
-            "protectedBase": "protected",
-            "publicBase": "protected"},
+            "Base::protected": AccessSpecifier.PROTECTED,
+            "Base::public": AccessSpecifier.PROTECTED},
         "DerivedDerived": {
-            "protectedBase": "protected",
-            "publicBase": "protected"
+            "Base::protected": AccessSpecifier.PROTECTED,
+            "Base::public": AccessSpecifier.PROTECTED
         }
     }
 
@@ -67,16 +66,12 @@ def protected_inheritance_fixture():
 @pytest.fixture
 def public_inheritance_fixture():
     return {
-        "Base": {
-            "privateBase": "private",
-            "protectedBase": "protected",
-            "publicBase": "public"},
         "Derived": {
-            "protectedBase": "protected",
-            "publicBase": "public"},
+            "Base::protected": AccessSpecifier.PROTECTED,
+            "Base::public": AccessSpecifier.PUBLIC},
         "DerivedDerived": {
-            "protectedBase": "protected",
-            "publicBase": "public"
+            "Base::protected": AccessSpecifier.PROTECTED,
+            "Base::public": AccessSpecifier.PUBLIC
         }
     }
 
@@ -84,42 +79,14 @@ def public_inheritance_fixture():
 @pytest.fixture
 def multiple_inheritance_fixture():
     return {
-        "A": {
-            "s_": "private",
-            "arr": "public"},
-        "B": {"ch": "public"},
-        "C": {
-            "arr": "public",
-            "ch": "public"
+        "Base": {"Base::base": AccessSpecifier.PUBLIC},
+        "A": {"A::a": AccessSpecifier.PUBLIC, "Base::base": AccessSpecifier.PUBLIC},
+        "B": {"B::b": AccessSpecifier.PUBLIC, "Base::base": AccessSpecifier.PUBLIC},
+        "Derived": {
+            "A::a": AccessSpecifier.PUBLIC,
+            "B::b": AccessSpecifier.PUBLIC,
+            "Base::base": AccessSpecifier.PUBLIC
         }
-    }
-
-
-@pytest.fixture
-def several_classes_in_file_fixture():
-    return {
-        "A": {
-            "privateA": "private",
-            "protectedA": "protected",
-            "publicA": "public"},
-        "B": {"privateB": "private",
-              "protectedB": "protected",
-              "publicB": "public",
-              "publicA": "public",
-              "protectedA": "protected"},
-        "C": {"privateC": "private",
-              "protectedC": "protected",
-              "publicC": "public",
-              "protectedA": "private",
-              "protectedB": "private",
-              "publicA": "private",
-              "publicB": "private"},
-        "D": {
-            "privateD": "private",
-            "protectedD": "protected",
-            "publicD": "public",
-            "protectedC": "private",
-            "publicC": "private"}
     }
 
 
