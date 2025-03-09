@@ -5,14 +5,11 @@ from src.cursor_classes.class_cursor import ClassCursor
 class AttributeHidingFactor(ClassMetric):
     """ Calculates attribute hiding factor """
 
+    NAME = "ATTRIBUTE_HIDING_FACTOR"
+
     def __init__(self):
-        self._name = "ATTRIBUTE_HIDING_FACTOR"
         self._hidden_attributes = 0
         self._total_attributes = 0
-
-    @property
-    def name(self) -> str:
-        return self._name
 
     def consume(self, class_cursor: ClassCursor) -> None:
         """
