@@ -29,7 +29,7 @@ class ClassCursor:
                      visited: tuple[str, str] = None) -> \
             Union[List[AttributeCursor], List[MethodCursor]]:
         """
-        Finds all available attributes in the class.
+        Finds all available cursors of specific type in the class.
 
         :param cursor_kind: Cursor to look for
         :param visited: Set of tuple[filename, class_name] to prevent visiting one class twice
@@ -57,5 +57,6 @@ class ClassCursor:
                     if child.access_specifier != AccessSpecifier.PUBLIC:
                         cur.access_specifier = child.access_specifier
 
+                    cur.inherited = True
                     cursors.append(cur)
         return cursors
