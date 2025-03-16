@@ -5,6 +5,7 @@ from src.metric_classes.number_of_files import NumberOfFiles
 from src.metric_classes.number_of_classes import NumberOfClasses
 from src.metric_classes.method_hiding_factor import MethodHidingFactor
 from src.metric_classes.attribute_hiding_factor import AttributeHidingFactor
+from src.metric_classes.attribute_inheritance_factor import AttributeInheritanceFactor
 
 
 class TestCppExtStats:
@@ -55,5 +56,15 @@ class TestCppExtStats:
     def test_attribute_hiding_factor(self, repo_path, expected):
         stats = CppExtStats(repo_path)
         result = stats.metric(AttributeHidingFactor.NAME)
+
+        assert result == expected
+
+    @pytest.mark.parametrize(
+        "repo_path, expected",
+        list(zip(__repo_paths, [0, 0, 5 / 8, 1, 1, 1, 15 / 21, 0, 15 / 21]))
+    )
+    def test_attribute_inheritance_factor(self, repo_path, expected):
+        stats = CppExtStats(repo_path)
+        result = stats.metric(AttributeInheritanceFactor.NAME)
 
         assert result == expected
