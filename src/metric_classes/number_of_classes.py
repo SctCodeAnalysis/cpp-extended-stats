@@ -9,16 +9,13 @@ class NumberOfClasses:
     Collects ClassCursors and calculates number of C/C++ classes
     """
 
+    NAME = "NUMBER_OF_CLASSES"
+
     def __init__(self, file_cursors: List[FileCursor]):
         """
         :param file_cursors: List of FileCursors, collected in NumberOfFiles class
         """
-        self._name = "NUMBER_OF_CLASSES"
         self._class_cursors = self._collect_classes(file_cursors)
-
-    @property
-    def name(self) -> str:
-        return self._name
 
     @property
     def result(self):

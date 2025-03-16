@@ -7,6 +7,7 @@ from src.metric_classes.number_of_files import NumberOfFiles
 from src.metric_classes.number_of_classes import NumberOfClasses
 from src.metric_classes.class_metric import ClassMetric
 from src.metric_classes.attribute_hiding_factor import AttributeHidingFactor
+from src.metric_classes.method_hiding_factor import MethodHidingFactor
 
 
 class CppExtStats:
@@ -18,9 +19,10 @@ class CppExtStats:
         """
         self._repo_path: str = repo_path
         number_of_files = NumberOfFiles(repo_path)
-        self._metrics = {"NUMBER_OF_FILES": number_of_files,
-                         "NUMBER_OF_CLASSES": NumberOfClasses(number_of_files.get_files()),
-                         "ATTRIBUTE_HIDING_FACTOR": AttributeHidingFactor()}
+        self._metrics = {NumberOfFiles.NAME: number_of_files,
+                         NumberOfClasses.NAME: NumberOfClasses(number_of_files.get_files()),
+                         AttributeHidingFactor.NAME: AttributeHidingFactor(),
+                         MethodHidingFactor.NAME: MethodHidingFactor()}
         self._calculate()
 
     def list(self) -> List[str]:
@@ -49,13 +51,14 @@ class CppExtStats:
         ET.SubElement(root, "repository-path").text = f"./{self._repo_path}"
         metrics_element = ET.SubElement(root, "metrics")
         for metric in self._metrics.values():
-            ET.SubElement(metrics_element, metric.name).text = str(round(metric.result, 2))
+            ET.SubElement(metrics_element, "metric",
+                          name=metric.NAME).text = str(round(metric.result, 2))
 
         return minidom.parseString(ET.tostring(root)).toprettyxml(indent="\t")
 
     def _calculate(self) -> None:
         """Calls callback method of every metric class"""
-        for cls in self._metrics["NUMBER_OF_CLASSES"].get_classes():
+        for cls in self._metrics[NumberOfClasses.NAME].get_classes():
             for metric in self._metrics.values():
                 if isinstance(metric, ClassMetric):
                     metric.consume(cls)

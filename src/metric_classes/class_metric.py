@@ -6,9 +6,7 @@ from src.cursor_classes.class_cursor import ClassCursor
 class ClassMetric(ABC):
     """ Base class for metrics that are connected with Object-Oriented Design """
 
-    @property
-    def name(self) -> str:
-        return "Metric name"
+    NAME = "METRIC_NAME"
 
     @property
     def result(self) -> float:
