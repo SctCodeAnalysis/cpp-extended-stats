@@ -8,6 +8,7 @@ from src.metric_classes.number_of_classes import NumberOfClasses
 from src.metric_classes.class_metric import ClassMetric
 from src.metric_classes.attribute_hiding_factor import AttributeHidingFactor
 from src.metric_classes.method_hiding_factor import MethodHidingFactor
+from src.metric_classes.attribute_inheritance_factor import AttributeInheritanceFactor
 from src.metric_classes.method_inheritance_factor import MethodInheritanceFactor
 
 
@@ -24,6 +25,7 @@ class CppExtStats:
                          NumberOfClasses.NAME: NumberOfClasses(number_of_files.get_files()),
                          AttributeHidingFactor.NAME: AttributeHidingFactor(),
                          MethodHidingFactor.NAME: MethodHidingFactor(),
+                         AttributeInheritanceFactor.NAME: AttributeInheritanceFactor(),
                          MethodInheritanceFactor.NAME: MethodInheritanceFactor()}
         self._calculate()
 
