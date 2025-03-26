@@ -20,4 +20,3 @@ class ClassMetric(ABC):
         :param class_cursor: Reference to a class/struct within the AST
         :return: None
         """
-        pass
