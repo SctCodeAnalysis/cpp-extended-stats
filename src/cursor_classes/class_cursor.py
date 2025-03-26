@@ -25,8 +25,7 @@ class ClassCursor:
         """Finds all available methods in the class."""
         return self._get_cursors(CursorKind.FIELD_DECL)
 
-    def _get_cursors(self, cursor_kind: Union[CursorKind.FIELD_DECL, CursorKind.CXX_METHOD],
-                     visited: tuple[str, str] = None) -> \
+    def _get_cursors(self, cursor_kind: CursorKind, visited: tuple[str, str] = None) -> \
             Union[List[AttributeCursor], List[MethodCursor]]:
         """
         Finds all available cursors of specific type in the class.
