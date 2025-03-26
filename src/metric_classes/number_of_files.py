@@ -33,7 +33,8 @@ class NumberOfFiles:
 
         # Set the path in which to search for libclang
         if not Config.library_file:
-            Config.set_library_file("/path/to/libclang.dll")
+            libclang_path = os.getenv("PATH_TO_LIBCLANG")
+            Config.set_library_file(libclang_path)
         index = Index.create()
 
         matches_gitignore: Callable[[str], bool] = self._get_matches_gitignore(repo_path)
