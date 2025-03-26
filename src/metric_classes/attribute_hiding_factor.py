@@ -1,3 +1,5 @@
+""" Class that calculates attribute hiding factor metric. """
+
 from src.metric_classes.class_metric import ClassMetric
 from src.cursor_classes.class_cursor import ClassCursor
 

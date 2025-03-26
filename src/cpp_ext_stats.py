@@ -1,3 +1,5 @@
+""" Class for creating report about quality of C/C++ repository. """
+
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from datetime import datetime

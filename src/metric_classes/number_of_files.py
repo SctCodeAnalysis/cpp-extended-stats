@@ -1,3 +1,6 @@
+""" Class that calculates number of files metric. """
+
+
 import os
 from collections.abc import Callable
 from typing import List
@@ -22,10 +25,12 @@ class NumberOfFiles:
         self._file_cursors = self._collect_files(os.path.normpath(repo_path))
 
     def get_files(self) -> List[FileCursor]:
+        """ Gets list of file cursors. """
         return self._file_cursors
 
     @property
     def result(self) -> int:
+        """ Property that returns number of files. """
         return len(self._file_cursors)
 
     def _collect_files(self, repo_path: str) -> List[FileCursor]:

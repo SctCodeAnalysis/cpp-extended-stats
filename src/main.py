@@ -1,3 +1,5 @@
+""" Main file of the project. """
+
 import click
 
 from src.cpp_ext_stats import CppExtStats

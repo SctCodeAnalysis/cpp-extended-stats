@@ -1,3 +1,6 @@
+""" Base class for metrics. """
+
+
 from abc import ABC, abstractmethod
 
 from src.cursor_classes.class_cursor import ClassCursor
@@ -10,6 +13,7 @@ class ClassMetric(ABC):
 
     @property
     def result(self) -> float:
+        """ Property that returns value of calculated metric. """
         return 0
 
     @abstractmethod
