@@ -1,6 +1,5 @@
 """ Base class for metrics. """
 
-
 from abc import ABC, abstractmethod
 
 from src.cursor_classes.class_cursor import ClassCursor
