@@ -7,6 +7,7 @@ from src.metric_classes.method_hiding_factor import MethodHidingFactor
 from src.metric_classes.attribute_hiding_factor import AttributeHidingFactor
 from src.metric_classes.method_inheritance_factor import MethodInheritanceFactor
 from src.metric_classes.attribute_inheritance_factor import AttributeInheritanceFactor
+from src.metric_classes.polymorphism_factor import PolymorphismFactor
 
 
 class TestCppExtStats:
@@ -17,12 +18,11 @@ class TestCppExtStats:
                     "tests/data/inheritance/protected",
                     "tests/data/inheritance/public",
                     "tests/data/inheritance",
-                    "tests/data/several_classes_in_file",
-                    "tests/data"]
+                    "tests/data/several_classes_in_file"]
 
     @pytest.mark.parametrize(
         "repo_path, expected",
-        list(zip(__repo_paths, [0, 10, 1, 2, 2, 2, 8, 1, 22]))
+        list(zip(__repo_paths, [0, 10, 1, 2, 2, 2, 8, 1]))
     )
     def test_number_of_files(self, repo_path, expected):
         stats = CppExtStats(repo_path)
@@ -32,7 +32,7 @@ class TestCppExtStats:
 
     @pytest.mark.parametrize(
         "repo_path, expected",
-        list(zip(__repo_paths, [0, 0, 4, 2, 2, 2, 11, 4, 16]))
+        list(zip(__repo_paths, [0, 0, 4, 2, 2, 2, 11, 4]))
     )
     def test_number_of_classes(self, repo_path, expected):
         stats = CppExtStats(repo_path)
@@ -42,7 +42,7 @@ class TestCppExtStats:
 
     @pytest.mark.parametrize(
         "repo_path, expected",
-        list(zip(__repo_paths, [0, 0, 0, 1, 1, 0.5, 10 / 21, 0, 10 / 22]))
+        list(zip(__repo_paths, [0, 0, 0, 1, 1, 0.5, 10 / 21, 0]))
     )
     def test_method_hiding_factor(self, repo_path, expected):
         stats = CppExtStats(repo_path)
@@ -52,7 +52,7 @@ class TestCppExtStats:
 
     @pytest.mark.parametrize(
         "repo_path, expected",
-        list(zip(__repo_paths, [0, 0, 0, 1, 1, 0.5, 10 / 21, 0, 10 / 21]))
+        list(zip(__repo_paths, [0, 0, 0, 1, 1, 0.5, 10 / 21, 0]))
     )
     def test_attribute_hiding_factor(self, repo_path, expected):
         stats = CppExtStats(repo_path)
@@ -62,7 +62,7 @@ class TestCppExtStats:
 
     @pytest.mark.parametrize(
         "repo_path, expected",
-        list(zip(__repo_paths, [0, 0, 5 / 8, 1, 1, 1, 15 / 21, 0, 15 / 22]))
+        list(zip(__repo_paths, [0, 0, 5 / 8, 1, 1, 1, 15 / 21, 0]))
     )
     def test_method_inheritance_factor(self, repo_path, expected):
         stats = CppExtStats(repo_path)
@@ -72,10 +72,24 @@ class TestCppExtStats:
 
     @pytest.mark.parametrize(
         "repo_path, expected",
-        list(zip(__repo_paths, [0, 0, 5 / 8, 1, 1, 1, 15 / 21, 0, 15 / 21]))
+        list(zip(__repo_paths, [0, 0, 5 / 8, 1, 1, 1, 15 / 21, 0]))
     )
     def test_attribute_inheritance_factor(self, repo_path, expected):
         stats = CppExtStats(repo_path)
         result = stats.metric(AttributeInheritanceFactor.NAME)
+
+        assert result == expected
+
+    @pytest.mark.parametrize(
+        "repo_path, expected",
+        [("tests/data/gitignore", 0),
+         ("tests/data/polymorphism/standard", 3 / 4),
+         ("tests/data/polymorphism/signatures_difference", 1 / 3),
+         ("tests/data/polymorphism/multiple_inheritance", 2 / 3),
+         ("tests/data/polymorphism/complicated", 6 / 10)]
+    )
+    def test_polymorphism_factor(self, repo_path, expected):
+        stats = CppExtStats(repo_path)
+        result = stats.metric(PolymorphismFactor.NAME)
 
         assert result == expected
