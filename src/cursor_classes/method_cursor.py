@@ -17,3 +17,6 @@ class MethodCursor:
 
     def is_inherited(self) -> bool:
         return self.inherited
+
+    def is_virtual(self) -> bool:
+        return self.cursor.is_virtual_method()
