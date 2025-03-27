@@ -20,8 +20,8 @@ class PolymorphismFactor(ClassMetric):
         :return: None
         """
         methods = class_cursor.get_methods()
-        inherited_virtual_methods = set([(m.cursor.spelling, m.cursor.type.get_canonical().spelling)
-                                         for m in methods if m.inherited and m.is_virtual()])
+        inherited_virtual_methods = set((m.cursor.spelling, m.cursor.type.get_canonical().spelling)
+                                        for m in methods if m.inherited and m.is_virtual())
 
         self._polymorphic_situations += len(inherited_virtual_methods)
         for method_cursor in methods:
