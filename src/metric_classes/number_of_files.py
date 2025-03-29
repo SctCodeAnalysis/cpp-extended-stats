@@ -1,3 +1,5 @@
+""" Class that calculates number of files metric. """
+
 import os
 from collections.abc import Callable
 from typing import List
@@ -22,10 +24,12 @@ class NumberOfFiles:
         self._file_cursors = self._collect_files(os.path.normpath(repo_path))
 
     def get_files(self) -> List[FileCursor]:
+        """ Gets list of file cursors. """
         return self._file_cursors
 
     @property
     def result(self) -> int:
+        """ Property that returns number of files. """
         return len(self._file_cursors)
 
     def _collect_files(self, repo_path: str) -> List[FileCursor]:
@@ -33,7 +37,8 @@ class NumberOfFiles:
 
         # Set the path in which to search for libclang
         if not Config.library_file:
-            Config.set_library_file("/path/to/libclang.dll")
+            libclang_path = os.getenv("PATH_TO_LIBCLANG")
+            Config.set_library_file(libclang_path)
         index = Index.create()
 
         matches_gitignore: Callable[[str], bool] = self._get_matches_gitignore(repo_path)

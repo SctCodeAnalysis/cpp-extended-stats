@@ -1,3 +1,5 @@
+""" Class that calculates number of classes metric. """
+
 from typing import List
 
 from src.cursor_classes.class_cursor import ClassCursor
@@ -19,9 +21,11 @@ class NumberOfClasses:
 
     @property
     def result(self):
+        """ Property that returns number of classes. """
         return len(self._class_cursors)
 
-    def get_classes(self):
+    def get_classes(self) -> List[ClassCursor]:
+        """ Gets list of class cursors. """
         return self._class_cursors
 
     def _collect_classes(self, file_cursors: List[FileCursor]) -> List[ClassCursor]:

@@ -1,3 +1,5 @@
+""" Main file of the project. """
+
 import click
 
 from src.cpp_ext_stats import CppExtStats
@@ -14,9 +16,10 @@ def main(repo_path, report):
     """
     stats = CppExtStats(repo_path)
 
-    with open(report, "w") as file:
+    with open(report, "w", encoding="utf-8") as file:
         click.echo(stats.as_xml(), file=file)
 
 
 if __name__ == '__main__':
+    # pylint: disable=E1120
     main()
