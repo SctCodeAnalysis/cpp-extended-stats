@@ -9,6 +9,7 @@ from src.metric_classes.method_inheritance_factor import MethodInheritanceFactor
 from src.metric_classes.attribute_inheritance_factor import AttributeInheritanceFactor
 from src.metric_classes.polymorphism_factor import PolymorphismFactor
 from src.metric_classes.depth_of_inheritance_tree import AverageDepthOfInheritanceTree
+from src.metric_classes.number_of_children import AverageNumberOfChildren
 
 
 class TestCppExtStats:
@@ -105,5 +106,18 @@ class TestCppExtStats:
     def test_average_depth_of_inheritance_tree(self, repo_path, expected):
         stats = CppExtStats(repo_path)
         result = stats.metric(AverageDepthOfInheritanceTree.NAME)
+
+        assert result == expected
+
+    @pytest.mark.parametrize(
+        "repo_path, expected",
+        [("tests/data/empty", 0),
+         ("tests/data/hierarchy/mixed", 14 / 12),
+         ("tests/data/hierarchy/diamond", 13 / 12),
+         ("tests/data/hierarchy", 27 / 24)]
+    )
+    def test_average_number_of_children(self, repo_path, expected):
+        stats = CppExtStats(repo_path)
+        result = stats.metric(AverageNumberOfChildren.NAME)
 
         assert result == expected
