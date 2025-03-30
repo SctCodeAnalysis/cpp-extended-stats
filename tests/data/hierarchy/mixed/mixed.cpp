@@ -1,8 +1,10 @@
+class J {};
+
 class A {};
 
 class B : public A {};
 
-class C : public B {};
+class C : public B, private J {};
 
 class D : public B {};
 
@@ -15,8 +17,6 @@ class G : public C, public D {};
 class H : public E, public F {};
 
 class I : public G, public H {};
-
-class J {};
 
 class K : public J {};
 
