@@ -15,6 +15,7 @@ from src.metric_classes.method_inheritance_factor import MethodInheritanceFactor
 from src.metric_classes.polymorphism_factor import PolymorphismFactor
 from src.metric_classes.depth_of_inheritance_tree import AverageDepthOfInheritanceTree
 from src.metric_classes.number_of_children import AverageNumberOfChildren
+from src.metric_classes.response_for_a_class import AverageResponseForAClass
 
 
 class CppExtStats:
@@ -35,6 +36,7 @@ class CppExtStats:
                          PolymorphismFactor.NAME: PolymorphismFactor(),
                          AverageDepthOfInheritanceTree.NAME: AverageDepthOfInheritanceTree(),
                          AverageNumberOfChildren.NAME: AverageNumberOfChildren(),
+                         AverageResponseForAClass.NAME: AverageResponseForAClass(),
                          }
         self._calculate()
 
