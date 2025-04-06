@@ -2,8 +2,7 @@
 
 class A {
 public:
-    void a1(B b) {
-        C c = C();
+    void a1(B b, C c) {
         b.b1(c);
         b.b2();
     }
