@@ -33,7 +33,6 @@ class AverageNumberOfMessages(ClassMetric):
         methods_calls = 0
         for child in method_cursor.cursor.walk_preorder():
             if child.kind == CursorKind.CALL_EXPR and child.referenced:
-                print(child.spelling)
                 methods_calls += 1
         return methods_calls
 
