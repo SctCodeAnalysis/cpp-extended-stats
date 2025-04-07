@@ -51,7 +51,7 @@ class NumberOfFiles:
                 file_path = os.path.join(root, file)
                 _, ext = os.path.splitext(file)
                 if ext in self.__extensions and not matches_gitignore(file_path):
-                    cursor = index.parse(file_path).cursor
+                    cursor = index.parse(file_path, args=["-x", "c++"]).cursor
                     file_cursors.append(FileCursor(cursor, file_path))
         return file_cursors
 
