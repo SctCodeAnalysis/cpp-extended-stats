@@ -11,6 +11,7 @@ from src.metric_classes.polymorphism_factor import PolymorphismFactor
 from src.metric_classes.depth_of_inheritance_tree import AverageDepthOfInheritanceTree
 from src.metric_classes.number_of_children import AverageNumberOfChildren
 from src.metric_classes.response_for_a_class import AverageResponseForAClass
+from src.metric_classes.number_of_messages import AverageNumberOfMessages
 
 
 class TestCppExtStats:
@@ -128,11 +129,25 @@ class TestCppExtStats:
         [("tests/data/empty", 0),
          ("tests/data/method_calls/standard", 5 / 2),
          ("tests/data/method_calls/complicated", 11 / 3),
-         ("tests/data/method_calls/several_files", 10 / 3),
-         ("tests/data/method_calls", 26 / 8)]
+         ("tests/data/method_calls/several_files", 9 / 3),
+         ("tests/data/method_calls", 25 / 8)]
     )
     def test_average_response_for_a_class(self, repo_path, expected):
         stats = CppExtStats(repo_path)
         result = stats.metric(AverageResponseForAClass.NAME)
+
+        assert result == expected
+
+    @pytest.mark.parametrize(
+        "repo_path, expected",
+        [("tests/data/empty", 0),
+         ("tests/data/method_calls/standard", 2 / 2),
+         ("tests/data/method_calls/complicated", 9 / 3),
+         ("tests/data/method_calls/several_files", 3 / 3),
+         ("tests/data/method_calls", 14 / 8)]
+    )
+    def test_average_number_of_messages(self, repo_path, expected):
+        stats = CppExtStats(repo_path)
+        result = stats.metric(AverageNumberOfMessages.NAME)
 
         assert result == expected
