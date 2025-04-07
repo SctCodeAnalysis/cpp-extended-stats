@@ -8,6 +8,7 @@ from src.metric_classes.attribute_hiding_factor import AttributeHidingFactor
 from src.metric_classes.method_inheritance_factor import MethodInheritanceFactor
 from src.metric_classes.attribute_inheritance_factor import AttributeInheritanceFactor
 from src.metric_classes.polymorphism_factor import PolymorphismFactor
+from src.metric_classes.depth_of_inheritance_tree import AverageDepthOfInheritanceTree
 
 
 class TestCppExtStats:
@@ -91,5 +92,18 @@ class TestCppExtStats:
     def test_polymorphism_factor(self, repo_path, expected):
         stats = CppExtStats(repo_path)
         result = stats.metric(PolymorphismFactor.NAME)
+
+        assert result == expected
+
+    @pytest.mark.parametrize(
+        "repo_path, expected",
+        [("tests/data/empty", 0),
+         ("tests/data/hierarchy/mixed", 26 / 12),
+         ("tests/data/hierarchy/diamond", 25 / 12),
+         ("tests/data/hierarchy", 51 / 24)]
+    )
+    def test_average_depth_of_inheritance_tree(self, repo_path, expected):
+        stats = CppExtStats(repo_path)
+        result = stats.metric(AverageDepthOfInheritanceTree.NAME)
 
         assert result == expected

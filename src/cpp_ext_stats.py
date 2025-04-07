@@ -13,6 +13,7 @@ from src.metric_classes.method_hiding_factor import MethodHidingFactor
 from src.metric_classes.attribute_inheritance_factor import AttributeInheritanceFactor
 from src.metric_classes.method_inheritance_factor import MethodInheritanceFactor
 from src.metric_classes.polymorphism_factor import PolymorphismFactor
+from src.metric_classes.depth_of_inheritance_tree import AverageDepthOfInheritanceTree
 
 
 class CppExtStats:
@@ -30,7 +31,8 @@ class CppExtStats:
                          MethodHidingFactor.NAME: MethodHidingFactor(),
                          AttributeInheritanceFactor.NAME: AttributeInheritanceFactor(),
                          MethodInheritanceFactor.NAME: MethodInheritanceFactor(),
-                         PolymorphismFactor.NAME: PolymorphismFactor()}
+                         PolymorphismFactor.NAME: PolymorphismFactor(),
+                         AverageDepthOfInheritanceTree.NAME: AverageDepthOfInheritanceTree()}
         self._calculate()
 
     def list(self) -> List[str]:
