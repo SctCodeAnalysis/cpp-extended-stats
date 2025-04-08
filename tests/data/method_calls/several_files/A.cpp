@@ -1,12 +1,9 @@
-#include "B.cpp"
+#include <string>
+#include "A.h"
 
-class A {
-public:
-    void a1(B b, C c) {
-        b.b1(c);
-        b.b2();
-    }
+int A::a1(B b, C c, const std::string &str) {
+    b.b1(c);
+    return str.length();
+}
 
-    void a2() {}
-};
-
+void A::a2() {}

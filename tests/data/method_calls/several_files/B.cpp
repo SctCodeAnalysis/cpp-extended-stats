@@ -1,10 +1,7 @@
-#include "C.cpp"
+#include "B.h"
 
-class B {
-public:
-    void b1(C &c) {
-        c.c1();
-    }
+void B::b1(C &c) {
+    c.c1();
+}
 
-    void b2() {}
-};
+void B::b2() {}
