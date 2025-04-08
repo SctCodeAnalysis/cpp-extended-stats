@@ -1,6 +1,5 @@
-class C {
-public:
-    void c1() {}
+#include "C.h"
 
-    void c2() {}
-};
+void C::c1() {}
+
+void C::c2() {}

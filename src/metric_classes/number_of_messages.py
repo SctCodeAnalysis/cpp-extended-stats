@@ -2,12 +2,11 @@
 
 from clang.cindex import CursorKind
 
-from src.metric_classes.class_metric import ClassMetric
-from src.cursor_classes.class_cursor import ClassCursor
 from src.cursor_classes.method_cursor import MethodCursor
+from src.metric_classes.method_metric import MethodMetric
 
 
-class AverageNumberOfMessages(ClassMetric):
+class AverageNumberOfMessages(MethodMetric):
     """ Calculates average number of messages. """
 
     NAME = "AVERAGE_NUMBER_OF_MESSAGES"
@@ -15,26 +14,24 @@ class AverageNumberOfMessages(ClassMetric):
     def __init__(self):
         self._number_of_messages = {}
 
-    def consume(self, class_cursor: ClassCursor) -> None:
+    def consume(self, method_cursor: MethodCursor) -> None:
         """
-        Callback method for processing single reference to a class/struct within the AST.
+        Callback method for processing single reference to a method within the AST.
 
-        :param class_cursor: Reference to a class/struct within the AST
+        :param method_cursor: Reference to a method within the AST
         :return: None
         """
-        key = (class_cursor.cursor.location.file.name, class_cursor.cursor.spelling)
-        self._number_of_messages[key] = 0
+        if not method_cursor.definition:
+            return
 
-        for child in class_cursor.cursor.get_children():
-            if child.kind == CursorKind.CXX_METHOD:
-                self._number_of_messages[key] += self._consume_method(MethodCursor(child))
+        cls = method_cursor.definition.semantic_parent
+        key = (cls.location.file.name, cls.spelling)
+        if key not in self._number_of_messages:
+            self._number_of_messages[key] = 0
 
-    def _consume_method(self, method_cursor: MethodCursor) -> int:
-        methods_calls = 0
-        for child in method_cursor.cursor.walk_preorder():
+        for child in method_cursor.definition.walk_preorder():
             if child.kind == CursorKind.CALL_EXPR and child.referenced:
-                methods_calls += 1
-        return methods_calls
+                self._number_of_messages[key] += 1
 
     @property
     def result(self) -> float:

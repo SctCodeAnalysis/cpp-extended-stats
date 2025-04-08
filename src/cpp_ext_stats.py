@@ -5,9 +5,11 @@ from xml.dom import minidom
 from datetime import datetime
 from typing import List
 
+from src.metric_classes.class_metric import ClassMetric
+from src.metric_classes.method_metric import MethodMetric
+
 from src.metric_classes.number_of_files import NumberOfFiles
 from src.metric_classes.number_of_classes import NumberOfClasses
-from src.metric_classes.class_metric import ClassMetric
 from src.metric_classes.attribute_hiding_factor import AttributeHidingFactor
 from src.metric_classes.method_hiding_factor import MethodHidingFactor
 from src.metric_classes.attribute_inheritance_factor import AttributeInheritanceFactor
@@ -75,7 +77,12 @@ class CppExtStats:
 
     def _calculate(self) -> None:
         """Calls callback method of every metric class"""
-        for cls in self._metrics[NumberOfClasses.NAME].get_classes():
-            for metric in self._metrics.values():
+        for metric in self._metrics.values():
+            for cls in self._metrics[NumberOfClasses.NAME].get_classes():
                 if isinstance(metric, ClassMetric):
                     metric.consume(cls)
+
+            if isinstance(metric, MethodMetric):
+                for file in self._metrics[NumberOfFiles.NAME].get_files():
+                    for method in file.get_methods():
+                        metric.consume(method)

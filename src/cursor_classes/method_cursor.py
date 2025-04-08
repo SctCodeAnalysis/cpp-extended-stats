@@ -9,6 +9,7 @@ class MethodCursor:
 
     def __init__(self, cursor: Cursor):
         self.cursor = cursor
+        self.definition = cursor.get_definition()
         self.access_specifier = cursor.access_specifier
         self.inherited = False
 
