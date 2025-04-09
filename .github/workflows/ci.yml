@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PATH_TO_LIBCLANG: /usr/lib/x86_64-linux-gnu/libclang-17.so
+      CLANG_LIBRARY_PATH: /usr/lib/x86_64-linux-gnu/libclang-17.so
 
     steps:
       - uses: actions/checkout@v3
