@@ -5,6 +5,7 @@ from collections.abc import Callable
 from typing import List
 
 from clang.cindex import Config, Index
+from dotenv import load_dotenv
 from gitignore_parser import parse_gitignore
 
 from src.cursor_classes.file_cursor import FileCursor
@@ -37,7 +38,8 @@ class NumberOfFiles:
 
         # Set the path in which to search for libclang
         if not Config.library_file:
-            libclang_path = os.getenv("PATH_TO_LIBCLANG")
+            load_dotenv()
+            libclang_path = os.getenv("CLANG_LIBRARY_PATH")
             Config.set_library_file(libclang_path)
         index = Index.create()
 

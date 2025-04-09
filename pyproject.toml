@@ -1,0 +1,40 @@
+[project]
+name = "cpp-extended-stats"
+version = "0.1.0"
+description = "Extended Statistics for C/C++ repository"
+requires-python = ">=3.11"
+dependencies = [
+    "astroid",
+    "clang",
+    "click",
+    "colorama",
+    "coverage",
+    "dill",
+    "gitignore_parser",
+    "iniconfig",
+    "isort",
+    "libclang",
+    "mccabe",
+    "packaging",
+    "platformdirs",
+    "pluggy",
+    "pylint",
+    "pytest",
+    "python-dotenv",
+    "setuptools",
+    "tomlkit",
+    "wheel"
+]
+
+
+[project.scripts]
+cpp-extended-stats = "src.main:main"
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.data-files]
+"." = [".env"]
