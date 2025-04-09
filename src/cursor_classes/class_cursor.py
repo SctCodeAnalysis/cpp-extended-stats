@@ -1,3 +1,5 @@
+""" Class represents a reference to a class/struct within the AST. """
+
 from typing import List, Union
 from clang.cindex import Cursor, CursorKind, AccessSpecifier
 
@@ -6,7 +8,7 @@ from src.cursor_classes.attribute_cursor import AttributeCursor
 
 
 class ClassCursor:
-    """The ClassCursor class represents a reference to a class/struct within the AST."""
+    """ The ClassCursor class represents a reference to a class/struct within the AST. """
 
     # dict with CursorKind as key and class that represents cursor as value
     __cursor_kind_class = {
@@ -19,13 +21,13 @@ class ClassCursor:
 
     def get_methods(self) -> List[MethodCursor]:
         """Finds all available methods in the class."""
-        return self._get_cursors(CursorKind.CXX_METHOD)
+        return self.get_cursors(CursorKind.CXX_METHOD)
 
     def get_attributes(self) -> List[AttributeCursor]:
         """Finds all available methods in the class."""
-        return self._get_cursors(CursorKind.FIELD_DECL)
+        return self.get_cursors(CursorKind.FIELD_DECL)
 
-    def _get_cursors(self, cursor_kind: CursorKind, visited: tuple[str, str] = None) -> \
+    def get_cursors(self, cursor_kind: CursorKind, visited: tuple[str, str] = None) -> \
             Union[List[AttributeCursor], List[MethodCursor]]:
         """
         Finds all available cursors of specific type in the class.
@@ -49,7 +51,7 @@ class ClassCursor:
             # Public and protected cursors of base classes
             if child.kind == CursorKind.CXX_BASE_SPECIFIER:
                 base_class = ClassCursor(child.type.get_declaration())
-                for cur in base_class._get_cursors(cursor_kind, visited):
+                for cur in base_class.get_cursors(cursor_kind, visited):
                     if cur.access_specifier == AccessSpecifier.PRIVATE:
                         continue
 

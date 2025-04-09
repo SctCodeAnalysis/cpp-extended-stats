@@ -1,3 +1,5 @@
+""" Class represents a reference to an attribute of a class/struct within the AST. """
+
 from clang.cindex import Cursor, AccessSpecifier
 
 
@@ -13,7 +15,9 @@ class AttributeCursor:
         self.inherited = False
 
     def is_hidden(self) -> bool:
+        """ Method for checking whether a cursor is hidden. """
         return self.access_specifier in [AccessSpecifier.PRIVATE, AccessSpecifier.PROTECTED]
 
     def is_inherited(self) -> bool:
+        """ Method for checking whether a cursor is inherited. """
         return self.inherited
