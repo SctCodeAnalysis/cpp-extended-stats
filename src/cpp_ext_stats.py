@@ -1,6 +1,7 @@
 """ Class for creating report about quality of C/C++ repository. """
 
 import xml.etree.ElementTree as ET
+from os.path import abspath
 from xml.dom import minidom
 from datetime import datetime
 from typing import List
@@ -67,7 +68,7 @@ class CppExtStats:
         """
         root = ET.Element("report")
         ET.SubElement(root, "report-time").text = datetime.today().strftime('%d.%m.%Y')
-        ET.SubElement(root, "repository-path").text = f"./{self._repo_path}"
+        ET.SubElement(root, "repository-path").text = f"{abspath(self._repo_path)}"
         metrics_element = ET.SubElement(root, "metrics")
         for metric in self._metrics.values():
             ET.SubElement(metrics_element, "metric",
