@@ -45,6 +45,10 @@ class NumberOfFiles:
 
         matches_gitignore: Callable[[str], bool] = self._get_matches_gitignore(repo_path)
 
+        args = ["-x", "c++"]
+        for root, _, _ in os.walk(repo_path):
+            args.extend(["-I", root])
+
         file_cursors = []
         for root, _, files in os.walk(repo_path):
             if matches_gitignore(root):
@@ -53,7 +57,7 @@ class NumberOfFiles:
                 file_path = os.path.join(root, file)
                 _, ext = os.path.splitext(file)
                 if ext in self.__extensions and not matches_gitignore(file_path):
-                    cursor = index.parse(file_path, args=["-x", "c++"]).cursor
+                    cursor = index.parse(file_path, args=args).cursor
                     file_cursors.append(FileCursor(cursor, file_path))
         return file_cursors
 
