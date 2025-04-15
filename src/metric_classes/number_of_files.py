@@ -40,7 +40,8 @@ class NumberOfFiles:
         if not Config.library_file:
             load_dotenv()
             libclang_path = os.getenv("CLANG_LIBRARY_PATH")
-            Config.set_library_file(libclang_path)
+            if libclang_path:
+                Config.set_library_file(libclang_path)
         index = Index.create()
 
         matches_gitignore: Callable[[str], bool] = self._get_matches_gitignore(repo_path)
