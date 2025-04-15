@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<report>
+	<report-time>14.04.2025</report-time>
+	<repository-path>C:\Users\negan\Downloads\design-patterns-cpp</repository-path>
+	<metrics>
+		<metric name="NUMBER_OF_FILES">24</metric>
+		<metric name="NUMBER_OF_CLASSES">104</metric>
+		<metric name="ATTRIBUTE_HIDING_FACTOR">1.0</metric>
+		<metric name="METHOD_HIDING_FACTOR">0.01</metric>
+		<metric name="ATTRIBUTE_INHERITANCE_FACTOR">0.09</metric>
+		<metric name="METHOD_INHERITANCE_FACTOR">0.34</metric>
+		<metric name="POLYMORPHISM_FACTOR">0.91</metric>
+		<metric name="AVERAGE_DEPTH_OF_INHERITANCE_TREE">0.49</metric>
+		<metric name="AVERAGE_NUMBER_OF_CHILDREN">0.52</metric>
+		<metric name="AVERAGE_RESPONSE_FOR_A_CLASS">3.79</metric>
+		<metric name="AVERAGE_NUMBER_OF_MESSAGES">2.88</metric>
+	</metrics>
+</report>
+
