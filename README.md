@@ -19,9 +19,12 @@ The stats are exposed as an API as well as exported report (in XML format)
 
 ## Installation
 
-Install Clang using CLI or you can get binaries here: https://github.com/llvm/llvm-project/releases
+Install Clang using CLI or you can get binaries here: https://github.com/llvm/llvm-project/releases.
+
+The standard library is NOT part of the compiler itself. You can use https://libcxx.llvm.org/ or any other implementation of the C++ standard library.
 
 ```shell
+\> git clone https://github.com/SctCodeAnalysis/cpp-extended-stats
 \> cd cpp-extended-stats
 ```
 
