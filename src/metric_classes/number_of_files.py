@@ -5,6 +5,7 @@ from collections.abc import Callable
 from typing import List
 
 from clang.cindex import Config, Index
+from dotenv import load_dotenv
 from gitignore_parser import parse_gitignore
 
 from src.cursor_classes.file_cursor import FileCursor
@@ -37,11 +38,17 @@ class NumberOfFiles:
 
         # Set the path in which to search for libclang
         if not Config.library_file:
-            libclang_path = os.getenv("PATH_TO_LIBCLANG")
-            Config.set_library_file(libclang_path)
+            load_dotenv()
+            libclang_path = os.getenv("CLANG_LIBRARY_PATH")
+            if libclang_path:
+                Config.set_library_file(libclang_path)
         index = Index.create()
 
         matches_gitignore: Callable[[str], bool] = self._get_matches_gitignore(repo_path)
+
+        args = ["-x", "c++"]
+        for root, _, _ in os.walk(repo_path):
+            args.extend(["-I", root])
 
         file_cursors = []
         for root, _, files in os.walk(repo_path):
@@ -51,7 +58,7 @@ class NumberOfFiles:
                 file_path = os.path.join(root, file)
                 _, ext = os.path.splitext(file)
                 if ext in self.__extensions and not matches_gitignore(file_path):
-                    cursor = index.parse(file_path, args=["-x", "c++"]).cursor
+                    cursor = index.parse(file_path, args=args).cursor
                     file_cursors.append(FileCursor(cursor, file_path))
         return file_cursors
 

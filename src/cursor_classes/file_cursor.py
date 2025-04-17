@@ -1,3 +1,5 @@
+""" Class represents a reference to a translation unit within the AST. """
+
 from typing import List
 from clang.cindex import Cursor, CursorKind
 
@@ -6,7 +8,7 @@ from src.cursor_classes.method_cursor import MethodCursor
 
 
 class FileCursor:
-    """The FileCursor class represents a reference to a translation unit within the AST."""
+    """ The FileCursor class represents a reference to a translation unit within the AST. """
 
     def __init__(self, cursor: Cursor, path: str):
         self.cursor = cursor
