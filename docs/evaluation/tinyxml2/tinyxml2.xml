@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<report>
+	<report-time>14.04.2025</report-time>
+	<repository-path>C:\Users\negan\Downloads\tinyxml2</repository-path>
+	<metrics>
+		<metric name="NUMBER_OF_FILES">4</metric>
+		<metric name="NUMBER_OF_CLASSES">28</metric>
+		<metric name="ATTRIBUTE_HIDING_FACTOR">0.96</metric>
+		<metric name="METHOD_HIDING_FACTOR">0.09</metric>
+		<metric name="ATTRIBUTE_INHERITANCE_FACTOR">0.51</metric>
+		<metric name="METHOD_INHERITANCE_FACTOR">0.5</metric>
+		<metric name="POLYMORPHISM_FACTOR">0.41</metric>
+		<metric name="AVERAGE_DEPTH_OF_INHERITANCE_TREE">0.19</metric>
+		<metric name="AVERAGE_NUMBER_OF_CHILDREN">0.5</metric>
+		<metric name="AVERAGE_RESPONSE_FOR_A_CLASS">29.65</metric>
+		<metric name="AVERAGE_NUMBER_OF_MESSAGES">45.12</metric>
+	</metrics>
+</report>
+
